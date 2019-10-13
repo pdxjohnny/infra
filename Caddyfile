@@ -1,6 +1,6 @@
 chadig.com:8080 {
   tls off
-  redir 302 {
+  redir 301 {
     /  https://{host}{uri}
   }
 }
@@ -16,7 +16,7 @@ chadig.com:4443 {
 
 dataflow.ml:8080 {
   tls off
-  redir 302 {
+  redir 301 {
     /  https://{host}{uri}
   }
 }
