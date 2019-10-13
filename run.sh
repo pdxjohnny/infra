@@ -23,14 +23,19 @@ if [ "x${GID}" == "x" ]; then
   exit 1
 fi
 
-mkdir -p cert
 mkdir -p sites
 
+if [ ! -d cert ]; then
+  mkdir -p cert
+  sudo chown caddy:caddy -R cert/
+fi
+
 docker build -t caddy .
-exec docker run --name caddy -d --restart=always \
+exec docker run --name caddy -d \
+  --restart=always \
   -p 80:8080 -p 443:4443 \
   --user "${ID}:${GID}" \
   -v "${PWD}/Caddyfile:/Caddyfile:ro" \
   -v "${PWD}/cert:/.cert" \
   -v "${PWD}/sites:/sites:ro" \
-  caddy /caddy -log stderr
+  caddy /caddy -log stderr -http-port 8080 -https-port 4443
