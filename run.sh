@@ -24,6 +24,7 @@ if [ "x${GID}" == "x" ]; then
 fi
 
 mkdir -p cert
+mkdir -p sites
 
 docker build -t caddy .
 exec docker run --name caddy -d --restart=always \
@@ -31,4 +32,5 @@ exec docker run --name caddy -d --restart=always \
   --user "${ID}:${GID}" \
   -v "${PWD}/Caddyfile:/Caddyfile:ro" \
   -v "${PWD}/cert:/.cert" \
-  caddy
+  -v "${PWD}/sites:/sites:ro" \
+  caddy /caddy -log stderr

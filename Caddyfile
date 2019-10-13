@@ -1,6 +1,11 @@
-chadig.com:8080 chadig.com:4443 {
+138.197.221.41:8080 chadig.com:8080 chadig.com:4443 {
   tls off
-  markdown /sites/chadig/blog
+  root /sites/chadig/blog
+  index index.md
+  ext .md
+  markdown {
+    template default templates/default.html
+  }
 }
 
 dataflow.ml:8080 dataflow.ml:4443 {
